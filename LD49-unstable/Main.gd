@@ -12,7 +12,9 @@ func run_map(number):
         $UI/TileMap.hide()
         $Sounds/NextLevel.play()
         $UI/MapSelector.hide()
-        $UI/PB.hide()
+        $UI/Msg/PB.hide()
+        $UI/Msg/FTS.hide()
+        $UI/Msg/GC.hide()
         $UI/CurrentTime.show()
         $UI/CurrentTime.text = "Loading.."
         var level = Level.instance()
@@ -29,7 +31,15 @@ func hide_time():
     $UI/CurrentTime.hide()
     
 func show_pb():
-    $UI/PB.show()
+    $UI/Msg/PB.show()
+    
+    
+func show_fts():
+    $UI/Msg/FTS.show()
+    
+    
+func show_gc():
+    $UI/Msg/GC.show()
     
     
 func show_end():
@@ -57,7 +67,9 @@ func go_to_level_selector():
     $UI/LevelInfo.show()
     $UI/RunInfo.show()
     $UI/TileMap.show()
-    $UI/PB.hide()
+    $UI/Msg/PB.hide()
+    $UI/Msg/FTS.hide()
+    $UI/Msg/GC.hide()
     $UI/MapSelector.show()
     $UI/MapSelector.update_cleared()
 
@@ -103,7 +115,15 @@ func show_info(map):
         time = get_time_str(Global.times[map])
     var slothtime = get_time_str(Global.sloth[map])
     $UI/LevelInfo.text = "LEVEL " + str(map) + "\n\nPB:          " + time + "\nsloth:       " + slothtime
-
+    if map in Global.fts:
+        $UI/LevelInfo/FTS.show()
+    else:
+        $UI/LevelInfo/FTS.hide()
+    if map in Global.gc:    
+        $UI/LevelInfo/GC.show()
+    else:
+        $UI/LevelInfo/GC.hide()
+    
 func update_total():
     var done = Global.maps
     var percent = floor(done/36.0 * 100)

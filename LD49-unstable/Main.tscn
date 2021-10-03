@@ -100,15 +100,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PB" type="Label" parent="UI"]
+[node name="Msg" type="VBoxContainer" parent="UI"]
+margin_left = 9.0
+margin_top = 47.0
+margin_right = 297.0
+margin_bottom = 151.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PB" type="Label" parent="UI/Msg"]
 visible = false
-margin_left = 8.0
-margin_top = 46.0
-margin_right = 152.0
-margin_bottom = 78.0
+margin_right = 288.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.984314, 0.572549, 0.168627, 1 )
+text = "New PB!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FTS" type="Label" parent="UI/Msg"]
+visible = false
+margin_right = 288.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.721569, 0.435294, 0.313726, 1 )
+text = "Faster Than sloth!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GC" type="Label" parent="UI/Msg"]
+visible = false
+margin_right = 288.0
+margin_bottom = 32.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0.905882, 0.384314, 1 )
-text = "New PB!"
+text = "Garrot Collected!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -148,6 +177,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FTS" type="Sprite" parent="UI/LevelInfo"]
+position = Vector2( 234.897, 75.5099 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 11 )
+hframes = 4
+vframes = 5
+frame = 19
+
+[node name="GC" type="Sprite" parent="UI/LevelInfo"]
+position = Vector2( 303.897, 75.5099 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 11 )
+hframes = 4
+vframes = 5
+frame = 18
+
 [node name="RunInfo" type="Label" parent="UI"]
 visible = false
 anchor_left = 0.5
@@ -175,9 +220,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -340.0
-margin_top = -142.0
+margin_top = -126.0
 margin_right = 340.0
-margin_bottom = 100.0
+margin_bottom = 116.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -370,7 +415,6 @@ format = 1
 tile_data = PoolIntArray( 65536, 0, 3, 65537, 0, 3, 65538, 0, 3, 65539, 0, 3, 65540, 0, 3, 65541, 0, 3, 65542, 0, 3, 65543, 0, 3, 65544, 0, 3, 65545, 0, 3, 65546, 0, 3, 65547, 0, 3, 65548, 0, 3, 65549, 0, 3, 65550, 0, 3, 65551, 0, 3, 65552, 0, 3, 65553, 0, 3, 65554, 0, 3, 65555, 0, 3, 65556, 0, 3, 65557, 0, 3, 131072, 0, 3, 131073, 0, 131073, 131082, 0, 131073, 131092, 0, 131073, 131093, 0, 3, 196608, 0, 3, 196618, 0, 131073, 196629, 0, 3, 262144, 0, 3, 262165, 0, 3, 327680, 0, 3, 327688, 0, 196609, 327689, 0, 196609, 327701, 0, 3, 393216, 0, 3, 393237, 0, 3, 458752, 0, 3, 458773, 0, 3, 524288, 0, 3, 524308, 0, 131073, 524309, 0, 3, 589824, 0, 3, 589825, 0, 131073, 589845, 0, 3, 655360, 0, 3, 655361, 0, 65537, 655368, 0, 65537, 655369, 0, 65537, 655381, 0, 3, 720896, 0, 3, 720897, 0, 65537, 720898, 0, 65537, 720900, 0, 196610, 720903, 0, 65537, 720904, 0, 65537, 720905, 0, 65537, 720909, 0, 196611, 720915, 0, 65539, 720917, 0, 3, 786432, 0, 3, 786433, 0, 65537, 786434, 0, 65537, 786435, 0, 65536, 786436, 0, 65537, 786437, 0, 131073, 786438, 0, 65537, 786439, 0, 65537, 786440, 0, 65537, 786441, 0, 65537, 786442, 0, 65537, 786443, 0, 131073, 786450, 0, 65539, 786451, 0, 65539, 786453, 0, 3, 851968, 0, 2, 851969, 0, 2, 851970, 0, 2, 851971, 0, 2, 851972, 0, 2, 851973, 0, 2, 851974, 0, 2, 851975, 0, 2, 851976, 0, 2, 851977, 0, 2, 851978, 0, 2, 851979, 0, 2, 851980, 0, 2, 851981, 0, 2, 851982, 0, 2, 851983, 0, 2, 851984, 0, 2, 851985, 0, 2, 851986, 0, 2, 851987, 0, 2, 851988, 0, 2, 851989, 0, 2 )
 
 [node name="Splash" type="ColorRect" parent="UI"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 0.905882, 0.384314, 1 )
@@ -398,6 +442,7 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="Control" parent="UI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 0.105133

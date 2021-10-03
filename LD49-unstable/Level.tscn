@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprites/tiles.png" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Goal.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Music/Win.wav" type="AudioStream" id=8]
 [ext_resource path="res://Music/PB_get.wav" type="AudioStream" id=9]
+[ext_resource path="res://Garot.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Music/Garrot.wav" type="AudioStream" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -79,6 +81,7 @@ script = ExtResource( 3 )
 Unstable = ExtResource( 4 )
 Key = ExtResource( 6 )
 Goal = ExtResource( 7 )
+Garot = ExtResource( 10 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 234.2, -408.754 )
@@ -101,5 +104,8 @@ stream = ExtResource( 9 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="Garrot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -5,6 +5,8 @@ var maps = 0
 
 var times = {}
 var total_time = 0
+var fts = []
+var gc = []
 
 var stopped = []
 

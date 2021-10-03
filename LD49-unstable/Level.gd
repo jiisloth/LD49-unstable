@@ -3,10 +3,12 @@ extends Node2D
 export(PackedScene) var Unstable
 export(PackedScene) var Key
 export(PackedScene) var Goal
+export(PackedScene) var Garot
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 
+var has_garot = false
 var map = 1
 var tilemap
 var win = false
@@ -66,12 +68,30 @@ func generate_unstable():
             5:
                 tilemap.set_cell(tile.x, tile.y, -1)
                 $Floor.set_cell(tile.x, tile.y, 2)
+            6:
+                var garot = Garot.instance()
+                garot.position = pos
+                add_child(garot)
+                tilemap.set_cell(tile.x, tile.y, -1)
         
-            
+func garot_get():
+    $Garrot.play()
+    if win:
+        garot_collected()
+    has_garot = true
+
+func garot_collected():
+    if not map in Global.gc:
+        Global.gc.append(map)
+        get_parent().show_gc()
+
+           
 func end_level():
     get_node("/root/Main").show_text("")
     $Player.win = true
     win = true
+    if has_garot:
+        garot_collected()
     current_time = OS.get_ticks_msec() - start_time
     get_parent().set_time(current_time)
     if map in Global.times.keys():
@@ -83,8 +103,12 @@ func end_level():
             $Win.play()
     else:
         Global.times[map] = current_time
-        get_parent().show_pb()
         $Win.play()
+    if current_time < Global.sloth[map]:
+        get_parent().show_fts()
+        if not map in Global.fts:
+            Global.fts.append(map)
+        
     get_parent().show_end()
         
 
