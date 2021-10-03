@@ -4,6 +4,7 @@ var number = 1
 var frame = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    $Blib.pitch_scale += number/10.0
     $Label.text = str(number)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -24,8 +25,11 @@ func _on_Button_focus_entered():
 
 
 func _on_MapButton_focus_entered():
+    if $Blib/Timer.time_left == 0:
+        $Blib.play()
     $Timer.start()
     $Animation.frame = 3
+    get_node("/root/Main").show_info(number)
 
 
 func _on_MapButton_focus_exited():

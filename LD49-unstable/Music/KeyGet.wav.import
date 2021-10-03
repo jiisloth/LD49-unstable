@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/KeyGet.wav-809f83c08f7607f90a65631608c24b60.sample"
+
+[deps]
+
+source_file="res://Music/KeyGet.wav"
+dest_files=[ "res://.import/KeyGet.wav-809f83c08f7607f90a65631608c24b60.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

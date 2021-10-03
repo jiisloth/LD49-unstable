@@ -26,7 +26,9 @@ const atributes = [
    ]
 
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
+    Global.stopped.append(self)
     $Tile.frame_coords = sprite
     weight = atributes[sprite.y][sprite.x]["weight"] * weight_scale
     match atributes[sprite.y][sprite.x]["special"]:

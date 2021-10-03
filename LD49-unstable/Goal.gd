@@ -20,10 +20,8 @@ func _process(delta):
 
 
 func _on_Goal_body_entered(body):
-    var bname = body.name
-    if len(bname.split("@")) == 2:
-        bname = bname.split("@")[0]
-    if bname == "FollowKey" or bname == "Key":
+    var bname = body.name.split("@")
+    if "FollowKey" in bname or "Key" in bname:
         body.queue_free()
         get_parent().end_level()
         win = true

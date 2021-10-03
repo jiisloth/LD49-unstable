@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprites/tiles.png" type="Texture" id=2]
@@ -7,14 +7,16 @@
 [ext_resource path="res://sprites/dark.png" type="Texture" id=5]
 [ext_resource path="res://Key.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Goal.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Music/Win.wav" type="AudioStream" id=8]
+[ext_resource path="res://Music/PB_get.wav" type="AudioStream" id=9]
 
-[sub_resource type="ConvexPolygonShape2D" id=11]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=12]
+[sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 
-[sub_resource type="TileSet" id=10]
+[sub_resource type="TileSet" id=3]
 0/name = "dark.png 0"
 0/texture = ExtResource( 5 )
 0/tex_offset = Vector2( 0, -16 )
@@ -39,14 +41,14 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape = SubResource( 11 )
+1/shape = SubResource( 1 )
 1/shape_one_way = false
 1/shape_one_way_margin = 1.0
 1/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 11 ),
+"shape": SubResource( 1 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 1/z_index = 0
@@ -60,14 +62,14 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-2/shape = SubResource( 12 )
+2/shape = SubResource( 2 )
 2/shape_one_way = false
 2/shape_one_way_margin = 1.0
 2/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 12 ),
+"shape": SubResource( 2 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
@@ -84,8 +86,20 @@ position = Vector2( 234.2, -408.754 )
 [node name="Floor" type="TileMap" parent="."]
 position = Vector2( 0, 16 )
 scale = Vector2( 3, 3 )
-tile_set = SubResource( 10 )
+tile_set = SubResource( 3 )
 cell_size = Vector2( 16, 16 )
 collision_layer = 4
 collision_mask = 4
 format = 1
+
+[node name="Win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="Pb" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

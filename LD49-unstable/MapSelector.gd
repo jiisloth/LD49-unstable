@@ -27,6 +27,9 @@ func generate_buttons(count):
             buttons[i].focus_neighbour_top = buttons[i-cols].get_path()
         if i+cols < len(buttons):
             buttons[i].focus_neighbour_bottom = buttons[i+cols].get_path()
+        else:
+            buttons[i].focus_neighbour_bottom = get_parent().get_node("TileMap/Control").get_path()
+            get_parent().get_node("TileMap/Control").focus_neighbour_top = buttons[i].get_path()
 
 func update_cleared():
     var buttons = get_children()
@@ -40,5 +43,29 @@ func update_cleared():
     
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#    pass
+func _process(delta):
+    if Input.is_action_just_pressed("ui_accept") and get_parent().get_node("TileMap/Control").has_focus():
+        get_node("/root/Main").go_to_menu()
+        get_node("/root/Main/Sounds/Back").play()
+
+
+
+func _on_Control_focus_entered():
+    get_parent().get_node("TileMap/Control/Back").frame_coords.y = 1
+    get_parent().get_parent().get_node("Sounds/Blib").play()
+    
+
+
+func _on_Control_focus_exited():
+    get_parent().get_node("TileMap/Control/Back").frame_coords.y = 0
+
+
+func _on_Control_mouse_entered():
+    get_parent().get_node("TileMap/Control").grab_focus()
+
+
+func _on_Control_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            get_node("/root/Main").go_to_menu()
+            get_node("/root/Main/Sounds/Back").play()

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/PB_get.wav-ff4f035150769e108ee21224ae37dee6.sample"
+
+[deps]
+
+source_file="res://Music/PB_get.wav"
+dest_files=[ "res://.import/PB_get.wav-ff4f035150769e108ee21224ae37dee6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

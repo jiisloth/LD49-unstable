@@ -8,10 +8,10 @@ const jumpv = Vector2(0,-400)
 const maxspeed = 300
 var win = false
 var on_ground = false
-# Called when the node enters the scene tree for the first time.
-func _ready():
-    pass # Replace with function body.
+var can_jump = true
 
+var dropped = false
+    
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -47,10 +47,8 @@ func _physics_process(delta):
             var collider = raycast.get_collider()
             if collider:
                 jump = true
-                var cname = collider.name
-                if len(cname.split("@")) == 2:
-                    cname = cname.split("@")[0]
-                if cname == "Unstable":
+                var cname = collider.name.split("@")
+                if "Unstable" in cname:
                     var collider_id = collider.get_instance_id()
                     var point = raycast.get_collision_point()
                     var distance = raycast.global_position - point
@@ -62,11 +60,16 @@ func _physics_process(delta):
                         objects[collider_id] = {}
                         objects[collider_id]["distance"] = distance
                         objects[collider_id]["point"] = point
+                if "FollowKey" in cname:
+                    $JumpKey.play()
         if jump:
             for oid in objects.keys():
                 var object = instance_from_id(oid)
                 object.apply_impulse(object.global_position - objects[oid]["point"], jumpv.rotated(deg2rad(move*30+180)))
             apply_central_impulse(2.5*jumpv)#.rotated(deg2rad(move*30)))
+            can_jump = false
+            $Timer.start()
+            $Jump.play()
 
 
 func _process(delta):
@@ -87,5 +90,13 @@ func _process(delta):
             $AnimationPlayer.play("falling")
         else:
             $AnimationPlayer.play("jumping")
+    
+    if not dropped and not win and global_position.y > 500:
+        dropped = true
+        $Drop.play()
+        get_node("/root/Main").show_text("Use [R] or [R1] to reset.\n[ESC] or [SELECT] to quit!")
             
-            
+
+
+func _on_Timer_timeout():
+    can_jump = true
