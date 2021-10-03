@@ -47,6 +47,12 @@ func _on_Button_mouse_entered():
 
 
 func _on_Button_gui_input(event): 
-    if event is InputEventMouseButton:# and frame > 0:
+    if event is InputEventMouseButton and frame > 0:
         if (event.is_pressed() and event.button_index == BUTTON_LEFT):
             get_node("/root/Main").run_map(number)
+
+func update_awards():
+    if number in Global.fts:
+        $Time.show()
+    if number in Global.gc:
+        $Garrot.show()

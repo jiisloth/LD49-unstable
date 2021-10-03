@@ -34,6 +34,7 @@ func generate_buttons(count):
 func update_cleared():
     var buttons = get_children()
     for i in len(buttons):
+        buttons[i].update_awards()
         if i == Global.maps:
             buttons[i].set_frame(2)
             buttons[i].grab_focus()
