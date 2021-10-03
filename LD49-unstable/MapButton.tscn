@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Control.gd" type="Script" id=1]
+[ext_resource path="res://Misc/CyberSloth.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://sprites/buttons.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+outline_color = Color( 0.929412, 0.937255, 0.968627, 1 )
+font_data = ExtResource( 2 )
+
+[node name="MapButton" type="Control"]
+margin_right = 52.0
+margin_bottom = 52.0
+focus_mode = 2
+mouse_default_cursor_shape = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Control" parent="."]
+margin_right = 52.0
+margin_bottom = 52.0
+focus_mode = 2
+mouse_default_cursor_shape = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Animation" type="Sprite" parent="."]
+position = Vector2( 26, 26 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
+hframes = 2
+vframes = 3
+
+[node name="Label" type="Label" parent="."]
+margin_left = 7.54063
+margin_top = 3.79252
+margin_right = 47.5406
+margin_bottom = 35.7925
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.929412, 0.937255, 0.968627, 1 )
+text = "36"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.8
+
+[connection signal="focus_entered" from="." to="." method="_on_MapButton_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_MapButton_focus_exited"]
+[connection signal="focus_entered" from="Button" to="." method="_on_Button_focus_entered"]
+[connection signal="gui_input" from="Button" to="." method="_on_Button_gui_input"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_Button_mouse_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
