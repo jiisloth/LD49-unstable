@@ -20,7 +20,9 @@ func run_map(number):
         var level = Level.instance()
         level.map = number
         current_map = level
-        add_child(level)
+        call_deferred("add_child", current_map)
+        
+
 
 func set_time(msec):
 
@@ -107,7 +109,7 @@ func next_map():
 func get_time_str(msec):
     var seconds = msec/1000.0
     var minutes = floor(seconds/60)
-    return (str(minutes).pad_zeros(2) + ":" + str(seconds - minutes * 60).pad_zeros(2))
+    return (str(minutes).pad_zeros(2) + ":" + str(seconds - minutes * 60).pad_zeros(2).pad_decimals(2))
 
 func show_info(map):
     var time = "--:--.--"
@@ -125,14 +127,36 @@ func show_info(map):
         $UI/LevelInfo/GC.hide()
     
 func update_total():
-    var done = Global.maps
-    var percent = floor(done/36.0 * 100)
+    var done = len(Global.times.keys())
+    var garrots = len(Global.gc)
+    var fts = len(Global.fts)
+    var bonus = 0
+    bonus += garrots / 40.0
+    bonus += fts / 70.0
+    var percent = floor((done+bonus)/36.0 * 100)
+    if garrots == 37:
+        percent += 1
+    if fts == 37:
+        percent += 1
+    percent = pad(percent,7)
+    var padding = ""
+    for i in len(str(done)) - 2:
+        padding += " "
     var sob = 0
     for time in Global.times.values():
         sob += time
-    $UI/RunInfo.text = str(done) + "/36   " + str(percent) + "%\nTotal:       " + get_time_str(Global.total_time) + "\nSum of Best: " + get_time_str(sob)
+    $UI/RunInfo.text = str(done) + "/36         " + padding + str(percent) + "%\nTotal:       " + get_time_str(Global.total_time) + "\nSum of Best: " + get_time_str(sob)
+
+func pad(s, x, c=" "):
+    s = str(s)
+    var spaces = ""
+    for i in x-len(s):
+        spaces += c
+    return spaces + s
+
 
 func _ready():
+    connect_buttons()
     update_total()
 
 
@@ -153,13 +177,20 @@ func go_to_menu():
     $UI/MainMenu/Play.grab_focus()
     $UI/Controls.hide()
 
+func go_to_fileselect():
+    $UI/Files.show()
+    $Sounds/NextLevel.play()
+    $Cooldown.start()
+    $UI/Files/Savefileselector1.grab_focus()
+    $UI/Files/Savefileselector1.update_data()
+    $UI/Files/Savefileselector2.update_data()
+    $UI/Files/Savefileselector3.update_data()
+
 
 func _process(delta):
     if $UI/Splash.visible and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
-        go_to_menu()
         $UI/Splash.hide()
-        $Sounds/NextLevel.play()
-        $Cooldown.start()
+        go_to_fileselect()
     if $UI/MainMenu/Play.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
         go_to_level_selector()
         $Sounds/Blib.play()
@@ -175,25 +206,32 @@ func _process(delta):
         $Sounds/Blib.play()
         go_to_menu()
         
+    if $UI/Files/Savefileselector1.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
+        select_file(0)
+    if $UI/Files/Savefileselector2.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
+        select_file(1)
+    if $UI/Files/Savefileselector3.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
+        select_file(2)
+      
+    if $UI/Files/Delete1.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
+        ask_delete(0)
+    if $UI/Files/Delete2.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
+        ask_delete(1)
+    if $UI/Files/Delete3.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
+        ask_delete(2)
         
-
-
-func _on_Play_focus_entered():
-    $UI/MainMenu/Play/Sprite.frame_coords.y = 1
-    $Sounds/Blib.play()
-
-
-func _on_Play_focus_exited():
-    $UI/MainMenu/Play/Sprite.frame_coords.y = 0
-
-
-func _on_Controls_focus_entered():
-    $UI/MainMenu/Controls/Sprite.frame_coords.y = 1
-    $Sounds/Blib.play()
-
-
-func _on_Controls_focus_exited():
-    $UI/MainMenu/Controls/Sprite.frame_coords.y = 0
+    if $UI/AreYouSure/Back.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
+        $UI/AreYouSure.hide()
+        go_to_fileselect()
+        
+    if $UI/AreYouSure/Delete.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
+        Save.reset_file(Global.savefile)
+        $UI/AreYouSure.hide()
+        go_to_fileselect()
+        
+    if $UI/MainMenu/BacktoFS.has_focus() and Input.is_action_just_pressed("ui_accept") and $Cooldown.time_left == 0:
+        $UI/MainMenu.hide()
+        go_to_fileselect()
 
 
 func _on_Play_gui_input(event):
@@ -211,12 +249,6 @@ func _on_Controls_gui_input(event):
             $UI/Controls.show()
 
 
-func _on_Play_mouse_entered():
-    $UI/MainMenu/Play.grab_focus()
-
-
-func _on_Controls_mouse_entered():
-    $UI/MainMenu/Controls.grab_focus()
 
 
 func _on_Controlsgui_gui_input(event):
@@ -224,3 +256,118 @@ func _on_Controlsgui_gui_input(event):
         if (event.is_pressed() and event.button_index == BUTTON_LEFT):
             $Sounds/Blib.play()
             go_to_menu()
+
+
+func _on_Splash_gui_input(event):    
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):    
+            $UI/Splash.hide()
+            go_to_fileselect()
+            
+    
+    
+func connect_buttons():
+    var buttons = [
+        $UI/MainMenu/Play,
+        $UI/MainMenu/Controls,
+        $UI/MainMenu/BacktoFS,
+        $UI/TileMap/Control,
+        $UI/Files/Savefileselector1,
+        $UI/Files/Savefileselector2,
+        $UI/Files/Savefileselector3,
+        $UI/Files/Delete1,
+        $UI/Files/Delete2,
+        $UI/Files/Delete3,
+        $UI/AreYouSure/Back,
+        $UI/AreYouSure/Delete
+       ]
+    for button in buttons:
+        button.connect("focus_entered", self, "_on_button_focus_entered", [button])
+        button.connect("focus_exited", self, "_on_button_focus_exited",  [button])
+        button.connect("mouse_entered", self, "_on_button_mouse_entered",  [button])
+    
+
+func _on_button_focus_entered(target):
+    target.get_node("Sprite").frame_coords.y = 1
+    $Sounds/Blib.play()
+
+
+func _on_button_focus_exited(target):
+    target.get_node("Sprite").frame_coords.y = 0
+
+
+func _on_button_mouse_entered(target):
+    target.grab_focus()
+
+
+func _on_Savefileselector1_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            select_file(0)
+
+func _on_Savefileselector2_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            select_file(1)
+
+func _on_Savefileselector3_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            select_file(2)
+
+
+func select_file(file): 
+    Save.load_file(file)
+    Global.savefile = file
+    $Cooldown.start()
+    go_to_menu()
+    $UI/Files.hide()
+    $Sounds/NextLevel.play()
+
+
+func _on_Delete1_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            ask_delete(0)
+
+func _on_Delete2_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            ask_delete(1)
+
+func _on_Delete3_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            ask_delete(2)
+
+
+func ask_delete(file):
+    Global.savefile = file
+    $UI/AreYouSure/InfoText.text = "Are you sure you want to delete save " + str(file+1) + "?"
+    $UI/AreYouSure/Back.grab_focus()
+    $UI/Files.hide()
+    $UI/AreYouSure.show()
+    $Sounds/Blib.play()
+
+
+func _on_Back_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            $UI/AreYouSure.hide()
+            go_to_fileselect()
+
+
+func _on_Delete_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            Save.reset_file(Global.savefile)
+            $UI/AreYouSure.hide()
+            go_to_fileselect()
+            
+
+
+func _on_BacktoFS_gui_input(event):
+    if event is InputEventMouseButton:
+        if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+            $UI/MainMenu.hide()
+            go_to_fileselect()

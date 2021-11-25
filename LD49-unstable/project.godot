@@ -10,13 +10,14 @@ config_version=4
 
 [application]
 
-config/name="LD49-unstable"
+config/name="Steady Grounds"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://global.gd"
+Save="*res://Savegame.gd"
 
 [display]
 

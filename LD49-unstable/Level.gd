@@ -34,13 +34,14 @@ func get_tilemap():
     get_parent().hide_time()
     
 func generate_floor():
-    for x in range(-500,100):
+    for x in range(-500,500):
         $Floor.set_cell(x, 0, 0)
     
 func generate_unstable():
     var tiles = tilemap.get_used_cells()
     for tile in tiles:
-        var pos = Vector2(tile.x, tile.y) * 16 * 3 + Vector2.ONE*8*3 + Vector2(0,17)  
+        var pos = Vector2(tile.x, tile.y) * 16 * 3 + Vector2.ONE*8*3 + Vector2(0,16)  
+        print(pos)
         if tile.y == 0:
             tilemap.set_cell(tile.x, tile.y, -1)
             $Floor.set_cell(tile.x, 0, 1)
@@ -108,7 +109,7 @@ func end_level():
         get_parent().show_fts()
         if not map in Global.fts:
             Global.fts.append(map)
-        
+    Save.save_data()
     get_parent().show_end()
         
 

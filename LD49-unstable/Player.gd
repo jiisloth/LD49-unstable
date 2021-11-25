@@ -11,10 +11,11 @@ var on_ground = false
 var can_jump = true
 
 var dropped = false
-    
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+    if mode == MODE_STATIC:
+        return
     applied_force = applied_force/2
     $Leg.physics_material_override.bounce = 0
     

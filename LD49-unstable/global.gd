@@ -1,5 +1,6 @@
 extends Node
 
+var savefile = 0
 
 var maps = 0
 

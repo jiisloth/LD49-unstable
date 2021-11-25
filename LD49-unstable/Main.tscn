@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://MapSelector.gd" type="Script" id=1]
 [ext_resource path="res://MapButton.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://sprites/widebutton.png" type="Texture" id=14]
 [ext_resource path="res://sprites/controls.png" type="Texture" id=15]
 [ext_resource path="res://sprites/slothand.png" type="Texture" id=16]
+[ext_resource path="res://Savefileselector.tscn" type="PackedScene" id=17]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -359,10 +360,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Back" type="Sprite" parent="UI/TileMap/Control"]
+[node name="Sprite" type="Sprite" parent="UI/TileMap/Control"]
 position = Vector2( 24.9301, 8.3541 )
 texture = ExtResource( 14 )
-hframes = 3
+hframes = 4
 vframes = 2
 
 [node name="Controls" type="ColorRect" parent="UI"]
@@ -417,6 +418,7 @@ tile_data = PoolIntArray( 65536, 0, 3, 65537, 0, 3, 65538, 0, 3, 65539, 0, 3, 65
 [node name="Splash" type="ColorRect" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
 color = Color( 1, 0.905882, 0.384314, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -434,12 +436,232 @@ margin_top = 397.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.929412, 0.937255, 0.968627, 1 )
 text = "
-Press ENTER / START"
+Click somewhere!"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Files" type="ColorRect" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0.905882, 0.384314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="Sprite" parent="UI/Files"]
+position = Vector2( 512.744, 198.553 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 13 )
+
+[node name="InfoText" type="Label" parent="UI/Files"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 305.0
+margin_bottom = -228.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.929412, 0.937255, 0.968627, 1 )
+text = "Choose a save file"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Savefileselector1" parent="UI/Files" instance=ExtResource( 17 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -368.0
+margin_top = -286.0
+margin_right = -175.0
+margin_bottom = -93.0
+focus_neighbour_right = NodePath("../Savefileselector2")
+focus_neighbour_bottom = NodePath("../Delete1")
+mouse_default_cursor_shape = 2
+
+[node name="Savefileselector2" parent="UI/Files" instance=ExtResource( 17 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -96.0478
+margin_top = -286.984
+margin_right = 96.9522
+margin_bottom = -93.9839
+focus_neighbour_left = NodePath("../Savefileselector1")
+focus_neighbour_right = NodePath("../Savefileselector3")
+focus_neighbour_bottom = NodePath("../Delete2")
+mouse_default_cursor_shape = 2
+filenumber = 1
+
+[node name="Savefileselector3" parent="UI/Files" instance=ExtResource( 17 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 175.634
+margin_top = -286.218
+margin_right = 367.634
+margin_bottom = -93.2182
+focus_neighbour_left = NodePath("../Savefileselector1")
+focus_neighbour_bottom = NodePath("../Delete3")
+mouse_default_cursor_shape = 2
+filenumber = 2
+
+[node name="Delete1" type="Control" parent="UI/Files"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -345.5
+margin_top = -72.0
+margin_right = -198.5
+margin_bottom = -26.0
+focus_neighbour_top = NodePath("../Savefileselector1")
+focus_neighbour_right = NodePath("../Delete2")
+focus_mode = 2
+mouse_default_cursor_shape = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UI/Files/Delete1"]
+position = Vector2( 71.8929, 23.9231 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 14 )
+hframes = 4
+vframes = 2
+frame = 3
+
+[node name="Delete2" type="Control" parent="UI/Files"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -73.5
+margin_top = -72.0
+margin_right = 73.5
+margin_bottom = -26.0
+focus_neighbour_left = NodePath("../Delete1")
+focus_neighbour_top = NodePath("../Savefileselector2")
+focus_neighbour_right = NodePath("../Delete3")
+focus_mode = 2
+mouse_default_cursor_shape = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UI/Files/Delete2"]
+position = Vector2( 71.8929, 23.9231 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 14 )
+hframes = 4
+vframes = 2
+frame = 3
+
+[node name="Delete3" type="Control" parent="UI/Files"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 198.5
+margin_top = -72.0
+margin_right = 345.5
+margin_bottom = -26.0
+focus_neighbour_left = NodePath("../Delete2")
+focus_neighbour_top = NodePath("../Savefileselector3")
+focus_mode = 2
+mouse_default_cursor_shape = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UI/Files/Delete3"]
+position = Vector2( 71.8929, 23.9231 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 14 )
+hframes = 4
+vframes = 2
+frame = 3
+
+[node name="AreYouSure" type="ColorRect" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0.905882, 0.384314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="Sprite" parent="UI/AreYouSure"]
+position = Vector2( 512.744, 198.553 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 13 )
+
+[node name="InfoText" type="Label" parent="UI/AreYouSure"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 344.0
+margin_bottom = -189.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.929412, 0.937255, 0.968627, 1 )
+text = "Are you sure you want to delete save 1?"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Control" parent="UI/AreYouSure"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -201.5
+margin_top = -145.0
+margin_right = -54.5
+margin_bottom = -99.0
+focus_mode = 2
+mouse_default_cursor_shape = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UI/AreYouSure/Back"]
+position = Vector2( 71.8929, 23.9231 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 14 )
+hframes = 4
+vframes = 2
+
+[node name="Delete" type="Control" parent="UI/AreYouSure"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 54.5
+margin_top = -145.0
+margin_right = 201.5
+margin_bottom = -99.0
+focus_mode = 2
+mouse_default_cursor_shape = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UI/AreYouSure/Delete"]
+position = Vector2( 71.8929, 23.9231 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 14 )
+hframes = 4
+vframes = 2
+frame = 3
 
 [node name="MainMenu" type="Control" parent="UI"]
 visible = false
@@ -473,10 +695,14 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 13 )
 
 [node name="Play" type="Control" parent="UI/MainMenu"]
-margin_left = 420.0
-margin_top = 280.0
-margin_right = 567.0
-margin_bottom = 326.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -72.0
+margin_top = -56.0
+margin_right = 72.0
+margin_bottom = -8.0
 focus_neighbour_bottom = NodePath("../Controls")
 focus_mode = 2
 __meta__ = {
@@ -487,16 +713,21 @@ __meta__ = {
 position = Vector2( 71.8929, 23.9231 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 14 )
-hframes = 3
+hframes = 4
 vframes = 2
 frame = 1
 
 [node name="Controls" type="Control" parent="UI/MainMenu"]
-margin_left = 420.0
-margin_top = 357.0
-margin_right = 567.0
-margin_bottom = 403.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -72.0
+margin_top = 16.0
+margin_right = 72.0
+margin_bottom = 64.0
 focus_neighbour_top = NodePath("../Play")
+focus_neighbour_bottom = NodePath("../Back")
 focus_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -506,9 +737,31 @@ __meta__ = {
 position = Vector2( 71.8929, 23.9231 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 14 )
-hframes = 3
+hframes = 4
 vframes = 2
 frame = 2
+
+[node name="BacktoFS" type="Control" parent="UI/MainMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -72.0
+margin_top = 88.0
+margin_right = 72.0
+margin_bottom = 136.0
+focus_neighbour_top = NodePath("../Controls")
+focus_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UI/MainMenu/BacktoFS"]
+position = Vector2( 71.8929, 23.9231 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 14 )
+hframes = 4
+vframes = 2
 
 [node name="InfoText" type="Label" parent="UI/MainMenu"]
 anchor_right = 1.0
@@ -554,16 +807,17 @@ one_shot = true
 [connection signal="gui_input" from="UI/EndOfLevel/Restart" to="." method="_on_Restart_gui_input"]
 [connection signal="gui_input" from="UI/EndOfLevel/Next" to="." method="_on_Next_gui_input"]
 [connection signal="timeout" from="UI/TileMap/Char/Timer" to="." method="_on_Timer_timeout"]
-[connection signal="focus_entered" from="UI/TileMap/Control" to="UI/MapSelector" method="_on_Control_focus_entered"]
-[connection signal="focus_exited" from="UI/TileMap/Control" to="UI/MapSelector" method="_on_Control_focus_exited"]
 [connection signal="gui_input" from="UI/TileMap/Control" to="UI/MapSelector" method="_on_Control_gui_input"]
-[connection signal="mouse_entered" from="UI/TileMap/Control" to="UI/MapSelector" method="_on_Control_mouse_entered"]
 [connection signal="gui_input" from="UI/Controls" to="." method="_on_Controlsgui_gui_input"]
-[connection signal="focus_entered" from="UI/MainMenu/Play" to="." method="_on_Play_focus_entered"]
-[connection signal="focus_exited" from="UI/MainMenu/Play" to="." method="_on_Play_focus_exited"]
+[connection signal="gui_input" from="UI/Splash" to="." method="_on_Splash_gui_input"]
+[connection signal="gui_input" from="UI/Files/Savefileselector1" to="." method="_on_Savefileselector1_gui_input"]
+[connection signal="gui_input" from="UI/Files/Savefileselector2" to="." method="_on_Savefileselector2_gui_input"]
+[connection signal="gui_input" from="UI/Files/Savefileselector3" to="." method="_on_Savefileselector3_gui_input"]
+[connection signal="gui_input" from="UI/Files/Delete1" to="." method="_on_Delete1_gui_input"]
+[connection signal="gui_input" from="UI/Files/Delete2" to="." method="_on_Delete2_gui_input"]
+[connection signal="gui_input" from="UI/Files/Delete3" to="." method="_on_Delete3_gui_input"]
+[connection signal="gui_input" from="UI/AreYouSure/Back" to="." method="_on_Back_gui_input"]
+[connection signal="gui_input" from="UI/AreYouSure/Delete" to="." method="_on_Delete_gui_input"]
 [connection signal="gui_input" from="UI/MainMenu/Play" to="." method="_on_Play_gui_input"]
-[connection signal="mouse_entered" from="UI/MainMenu/Play" to="." method="_on_Play_mouse_entered"]
-[connection signal="focus_entered" from="UI/MainMenu/Controls" to="." method="_on_Controls_focus_entered"]
-[connection signal="focus_exited" from="UI/MainMenu/Controls" to="." method="_on_Controls_focus_exited"]
 [connection signal="gui_input" from="UI/MainMenu/Controls" to="." method="_on_Controls_gui_input"]
-[connection signal="mouse_entered" from="UI/MainMenu/Controls" to="." method="_on_Controls_mouse_entered"]
+[connection signal="gui_input" from="UI/MainMenu/BacktoFS" to="." method="_on_BacktoFS_gui_input"]

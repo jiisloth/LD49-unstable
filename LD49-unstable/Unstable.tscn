@@ -10,7 +10,8 @@ collision_layer = 23
 collision_mask = 23
 mode = 1
 physics_material_override = SubResource( 1 )
-continuous_cd = 2
+continuous_cd = 1
+can_sleep = false
 angular_damp = 0.0
 script = ExtResource( 2 )
 
@@ -21,4 +22,4 @@ hframes = 4
 vframes = 5
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -21, -24, 21, -24, 24, -21, 24, 21, 21, 24, -21, 24, -24, 21, -24, -21 )
+polygon = PoolVector2Array( -21, -24, 21, -24, 23, -23, 24, -21, 24, 21, 23, 23, 21, 24, -21, 24, -23, 23, -24, 21, -24, -21, -23, -23 )

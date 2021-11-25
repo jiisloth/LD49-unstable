@@ -98,6 +98,7 @@ tracks/0/keys = {
 [node name="Player" type="RigidBody2D"]
 collision_layer = 1025
 mode = 1
+continuous_cd = 1
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -115,7 +116,6 @@ shape = SubResource( 3 )
 [node name="Joint" type="PinJoint2D" parent="."]
 node_a = NodePath("..")
 node_b = NodePath("../Leg")
-bias = 0.9
 
 [node name="Casts" type="Node2D" parent="."]
 

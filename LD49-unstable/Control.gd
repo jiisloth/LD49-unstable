@@ -52,6 +52,8 @@ func _on_Button_gui_input(event):
             get_node("/root/Main").run_map(number)
 
 func update_awards():
+    $Time.hide()
+    $Garrot.hide()
     if number in Global.fts:
         $Time.show()
     if number in Global.gc:

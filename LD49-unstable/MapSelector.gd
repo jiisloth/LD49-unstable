@@ -35,10 +35,12 @@ func update_cleared():
     var buttons = get_children()
     for i in len(buttons):
         buttons[i].update_awards()
-        if i == Global.maps:
+        if i > len(Global.times.keys()):
+            buttons[i].set_frame(0)
+        if i == len(Global.times.keys()):
             buttons[i].set_frame(2)
             buttons[i].grab_focus()
-        if i < Global.maps:
+        if i < len(Global.times.keys()):
             buttons[i].set_frame(1)
             
     
@@ -49,20 +51,6 @@ func _process(delta):
         get_node("/root/Main").go_to_menu()
         get_node("/root/Main/Sounds/Back").play()
 
-
-
-func _on_Control_focus_entered():
-    get_parent().get_node("TileMap/Control/Back").frame_coords.y = 1
-    get_parent().get_parent().get_node("Sounds/Blib").play()
-    
-
-
-func _on_Control_focus_exited():
-    get_parent().get_node("TileMap/Control/Back").frame_coords.y = 0
-
-
-func _on_Control_mouse_entered():
-    get_parent().get_node("TileMap/Control").grab_focus()
 
 
 func _on_Control_gui_input(event):

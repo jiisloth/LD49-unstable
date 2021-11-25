@@ -26,6 +26,7 @@ const atributes = [
    ]
 
 # Called when the node enters the scene tree for the first time.
+    
 
 func _ready():
     Global.stopped.append(self)
@@ -47,6 +48,9 @@ func _ready():
             
     pass # Replace with function body.
 
+func start():
+    linear_velocity = Vector2.ZERO
+    mode = RigidBody2D.MODE_RIGID
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

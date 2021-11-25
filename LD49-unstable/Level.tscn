@@ -84,7 +84,6 @@ Goal = ExtResource( 7 )
 Garot = ExtResource( 10 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 234.2, -408.754 )
 
 [node name="Floor" type="TileMap" parent="."]
 position = Vector2( 0, 16 )
