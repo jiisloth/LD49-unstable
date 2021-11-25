@@ -744,7 +744,7 @@ margin_top = 16.0
 margin_right = 72.0
 margin_bottom = 64.0
 focus_neighbour_top = NodePath("../Play")
-focus_neighbour_bottom = NodePath("../Back")
+focus_neighbour_bottom = NodePath("../BacktoFS")
 focus_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
