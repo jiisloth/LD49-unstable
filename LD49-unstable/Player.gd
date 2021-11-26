@@ -4,6 +4,8 @@ extends RigidBody2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+export(PackedScene) var Rope
+
 const jumpv = Vector2(0,-400)
 const maxspeed = 300
 var win = false
@@ -97,7 +99,23 @@ func _process(delta):
         $Drop.play()
         get_node("/root/Main").show_text("Use [R] or [R1] to reset.\n[ESC] or [SELECT] to quit!")
             
-
+func _ready():
+    call_deferred("add_ropes")
 
 func _on_Timer_timeout():
     can_jump = true
+
+
+func add_ropes():
+    var rope = Rope.instance()
+    rope.position = position + Vector2(0,-20)
+    rope.target = $Rope
+    rope.loops = 8
+    rope.type = 1
+    get_parent().add_child(rope) 
+    rope = Rope.instance()
+    rope.position = position + Vector2(0,-20)
+    rope.target = $Rope
+    rope.loops = 12
+    rope.type = 0
+    get_parent().add_child(rope) 

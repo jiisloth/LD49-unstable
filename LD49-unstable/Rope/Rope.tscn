@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Rope/Link.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Rope/Rope.gd" type="Script" id=2]
+[ext_resource path="res://Rope/RopePhysicPiece.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Rope/RopePiece.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 5.0
+
+[node name="Rope" type="Node2D"]
+position = Vector2( 34.4903, 6.77208 )
+z_index = -4
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+RopePhys = ExtResource( 3 )
+Link = ExtResource( 1 )
+RopePart = ExtResource( 4 )
+
+[node name="Anchor" type="StaticBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Anchor"]
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+margin_right = 1.0
+margin_bottom = 1.0
+color = Color( 0.913725, 0.0862745, 0.0862745, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

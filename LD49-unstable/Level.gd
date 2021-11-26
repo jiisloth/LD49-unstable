@@ -27,7 +27,6 @@ func _ready():
     
 func get_tilemap():
     var mappath = "res://Maps/Map_" + str(map).pad_zeros(2) + ".tscn"
-    print(mappath)
     tilemap = load(mappath)
     tilemap = tilemap.instance()
     add_child(tilemap)
@@ -41,7 +40,6 @@ func generate_unstable():
     var tiles = tilemap.get_used_cells()
     for tile in tiles:
         var pos = Vector2(tile.x, tile.y) * 16 * 3 + Vector2.ONE*8*3 + Vector2(0,16)  
-        print(pos)
         if tile.y == 0:
             tilemap.set_cell(tile.x, tile.y, -1)
             $Floor.set_cell(tile.x, 0, 1)
@@ -79,11 +77,12 @@ func garot_get():
     $Garrot.play()
     if win:
         garot_collected()
+        Save.save_data()
     has_garot = true
 
 func garot_collected():
-    if not map in Global.gc:
-        Global.gc.append(map)
+    if not str(map) in Global.gc:
+        Global.gc.append(str(map))
         get_parent().show_gc()
 
            
@@ -95,20 +94,20 @@ func end_level():
         garot_collected()
     current_time = OS.get_ticks_msec() - start_time
     get_parent().set_time(current_time)
-    if map in Global.times.keys():
-        if Global.times[map] > current_time:
-            Global.times[map] = current_time
+    if str(map) in Global.times.keys():
+        if Global.times[str(map)] > current_time:
+            Global.times[str(map)] = current_time
             get_parent().show_pb()
             $Pb.play()
         else:      
             $Win.play()
     else:
-        Global.times[map] = current_time
+        Global.times[str(map)] = current_time
         $Win.play()
-    if current_time < Global.sloth[map]:
+    if current_time < Global.sloth[str(map)]:
         get_parent().show_fts()
-        if not map in Global.fts:
-            Global.fts.append(map)
+        if not str(map) in Global.fts:
+            Global.fts.append(str(map))
     Save.save_data()
     get_parent().show_end()
         

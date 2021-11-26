@@ -62,3 +62,4 @@ func load_file(n):
     Global.total_time = file["total_time"]
     Global.fts = file["fts"]
     Global.gc = file["gc"]
+    print(Global.times)

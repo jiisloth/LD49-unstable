@@ -113,7 +113,9 @@ func get_time_str(msec):
 
 func show_info(map):
     var time = "--:--.--"
+    map = str(map)
     if map in Global.times.keys():
+        print(Global.times[map])
         time = get_time_str(Global.times[map])
     var slothtime = get_time_str(Global.sloth[map])
     $UI/LevelInfo.text = "LEVEL " + str(map) + "\n\nPB:          " + time + "\nsloth:       " + slothtime
