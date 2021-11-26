@@ -33,12 +33,15 @@ func generate_buttons(count):
 
 func update_cleared():
     var buttons = get_children()
+    buttons[0].grab_focus()
     for i in len(buttons):
         buttons[i].update_awards()
         if i > len(Global.times.keys()):
             buttons[i].set_frame(0)
         if i == len(Global.times.keys()):
             buttons[i].set_frame(2)
+            buttons[i].grab_focus()
+        if i == Global.maps +1:
             buttons[i].grab_focus()
         if i < len(Global.times.keys()):
             buttons[i].set_frame(1)

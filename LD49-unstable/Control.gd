@@ -54,7 +54,7 @@ func _on_Button_gui_input(event):
 func update_awards():
     $Time.hide()
     $Garrot.hide()
-    if number in Global.fts:
+    if str(number) in Global.fts:
         $Time.show()
-    if number in Global.gc:
+    if str(number) in Global.gc:
         $Garrot.show()
